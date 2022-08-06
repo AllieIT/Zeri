@@ -1,0 +1,5 @@
+# Project exclude paths
+/node_modules/
+/tests/test.d.ts
+/tests/test.js
+/tests/test.js.map
