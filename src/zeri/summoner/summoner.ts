@@ -1,6 +1,11 @@
 import { BaseSpark } from '../base/base';
-import { Summoner } from '../../models';
+import { SparkParams } from '../../models';
+import { LightningCrash } from "../rateLimiter/lightningCrash";
 
-export class SummonerSpark extends BaseSpark<Summoner> {
+export class SummonerSpark extends BaseSpark {
+
+    constructor(params: SparkParams, rateLimiter: LightningCrash) {
+        super(params, rateLimiter);
+    }
 
 }

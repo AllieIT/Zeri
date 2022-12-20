@@ -1,59 +1,64 @@
 import { config } from 'dotenv'
 
+import { SparkParams } from '../models';
+
 import { MatchSpark } from './match/match'
 import { LeagueSpark } from './league/league';
 import { SummonerSpark } from './summoner/summoner';
 import { DataDragonSpark } from './dataDragon/dataDragon';
-import { IDebugOptions, ISparkParams } from '../models';
+import { Heimerdinger } from "../heimerdinger/heimerdinger";
+import { LightningCrash } from "./rateLimiter/lightningCrash";
 
-config({ path: __dirname + '../.env' });
+config({ path: __dirname + '/../.env'});
 
+/**
+ * Zeri is a wrapper for Riot API written in TypeScript
+ * used to retrieve data from Riot servers located in any region.
+ *
+ * It implements a rate limiter ensuring the fastest possible data retrieving
+ * and prevents making too many requests to the API, avoiding blacklisting.
+ */
 export class Zeri {
-
+    /**
+     * Spark responsible for MatchV5 endpoint
+     */
     readonly match: MatchSpark;
+    /**
+     * Spark responsible for LeagueV4 endpoint
+     */
     readonly league: LeagueSpark;
+    /**
+     * Spark responsible for SummonerV4 endpoint
+     */
     readonly summoner: SummonerSpark;
+    /**
+     * Spark responsible for Data Dragon
+     */
     readonly dataDragon: DataDragonSpark;
 
-    private readonly _params: ISparkParams;
-    private readonly _debug: IDebugOptions;
-    private _key: string;
+    private readonly _params: SparkParams;
+    private readonly _rateLimiter: LightningCrash;
 
-    constructor(params: string | ISparkParams) {
-        this.match = new MatchSpark();
-        this.league = new LeagueSpark();
-        this.summoner = new SummonerSpark();
-        this.dataDragon = new DataDragonSpark();
+    private _logger: Heimerdinger;
 
-        this._key = process.env.RIOT_API_KEY || '';
-        this._debug = { logUrls: false, logRateLimits: false };
-        this._params = { key: this._key, debug: this._debug };
+    /**
+     * Create a new Zeri instance
+     * @param params String containing API key or object of type SparkParams
+     */
+    constructor(params: string | SparkParams) {
 
-        console.log(typeof params);
-        if (typeof params === 'string') {
-            this._key = params;
-        }
-        else if (params) {
-            this.params = params;
-        }
-    }
+        this._logger = new Heimerdinger();
 
-    private set params(params: ISparkParams) {
-        if (typeof params.key !== 'undefined') {
-            this._key = params.key;
-        }
-        if (typeof params.debug !== 'undefined') {
-            if (typeof params.debug.logUrls !== 'undefined') {
-                this._debug.logUrls = params.debug.logUrls;
-            }
-            if (typeof params.debug.logRateLimits !== 'undefined') {
-                this._debug.logRateLimits = params.debug.logRateLimits;
-            }
-        }
-        console.log(params);
-    }
+        if (typeof params === 'string')
+            this._params = { key: params, debug: { logUrls: false, logRateLimits: false } };
+        else
+            this._params = params;
 
-    private get params(): ISparkParams {
-        return this._params;
+        this._rateLimiter = new LightningCrash(this._params);
+
+        this.match = new MatchSpark(this._params, this._rateLimiter);
+        this.league = new LeagueSpark(this._params, this._rateLimiter);
+        this.summoner = new SummonerSpark(this._params, this._rateLimiter);
+        this.dataDragon = new DataDragonSpark(this._params, this._rateLimiter);
     }
 }

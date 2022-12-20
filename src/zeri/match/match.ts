@@ -1,6 +1,11 @@
 import { BaseSpark } from '../base/base';
-import { Match } from '../../models';
+import { SparkParams } from '../../models';
+import {LightningCrash} from "../rateLimiter/lightningCrash";
 
-export class MatchSpark extends BaseSpark<Match> {
+export class MatchSpark extends BaseSpark {
+
+    constructor(params: SparkParams, rateLimiter: LightningCrash) {
+        super(params, rateLimiter);
+    }
 
 }

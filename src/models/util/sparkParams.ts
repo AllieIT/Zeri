@@ -1,9 +1,9 @@
-export interface ISparkParams {
-    key?: string;
-    debug?: IDebugOptions;
+export interface SparkParams {
+    key: string;
+    debug?: DebugOptions;
 }
 
-export interface IDebugOptions {
+export interface DebugOptions {
     logUrls?: boolean;
     logRateLimits?: boolean;
 }
