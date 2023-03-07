@@ -7,13 +7,17 @@ import { Heimerdinger } from '../../heimerdinger/heimerdinger';
 import { LightningCrash } from "../rateLimiter/lightningCrash";
 import { injectToString } from '../../util/stringManip';
 
+/**
+ * Abstract class representing a single Spark, which are public parts of Zeri
+ * API wrapper responsible for creating requests with given input.
+ */
 export class BaseSpark {
 
     /**
      * Spark parameters containing key and debug options
      * @private
      */
-    private readonly _sparkParams: SparkParams;
+    private readonly _params: SparkParams;
     /**
      * Base URL of Riot API
      * @private
@@ -21,7 +25,7 @@ export class BaseSpark {
     private readonly _baseUrl: string;
 
     /**
-     * URL of specific Spark
+     * URL used by specific Spark
      * @protected
      */
     protected _sparkUrl: string = '';
@@ -52,7 +56,7 @@ export class BaseSpark {
 
         this._logger = new Heimerdinger('Spark');
         this._rateLimiter = rateLimiter;
-        this._sparkParams = params;
+        this._params = params;
         this._baseUrl = StaticConstants.SPARK_BASE_URL;
     }
     /**
@@ -65,7 +69,7 @@ export class BaseSpark {
         const urlTemplate = this._baseUrl + this._sparkUrl + this._requestTypes[request];
         const url = injectToString(urlTemplate, queryParams);
 
-        if (this._sparkParams.debug?.logUrls)
+        if (this._params.debug?.logUrls)
             this._logger.log(url);
 
         let region: Region | MacroRegion = BaseSpark._getRequestRegion(queryParams);
@@ -83,7 +87,7 @@ export class BaseSpark {
             if (e instanceof Error) {
                 this._logger.logError(e);
             } else
-                this._logger.logError(new Error("Unknown error"));
+                this._logger.log(e);
             throw new Error("Unknown error");
         }
     }
@@ -104,3 +108,4 @@ export class BaseSpark {
         return Region.EUNE;
     }
 }
+

@@ -79,7 +79,7 @@ export class LightningCrashRegion {
 
         // Wait for given amount of time...
         if (wait > 0)
-            console.log(`Waiting for ${wait} ms...`);
+            //console.log(`Waiting for ${wait} ms...`);
         await new Promise(resolve => setTimeout(resolve, wait));
 
         // If there is an existing timeout, wait until given time, and after a time offset, try again.
@@ -143,6 +143,8 @@ export class LightningCrashRegion {
                 //console.log(response.headers);
                 return this._retryAfter(request, url, delay + 500, noRetries + 1);
             }
+            // TODO: Handle other errors
+            console.log(JSON.stringify(err));
         }
         throw new Error("Failed to make a request");
     }
@@ -181,7 +183,7 @@ class RateLimit {
     /**
      * Times of requests
      */
-    requestTimes: number[]
+    _requestTimes: number[]
 
     /**
      * Create a new rate limit
@@ -191,17 +193,17 @@ class RateLimit {
     constructor(limit: number, time: number) {
         this.limit = limit
         this.time = time * 1000
-        this.requestTimes = []
+        this._requestTimes = []
     }
     /**
      * Get time after which a new request can be made
      * @returns -1 if a request can be made, time in milliseconds to wait otherwise
      */
     getDelay(): number {
-        if (this.requestTimes.length >= this.limit) {
-            this.requestTimes = this.requestTimes.filter(requestTime => requestTime > Date.now() - this.time);
-            if (this.requestTimes.length >= this.limit)
-                return this.time - (Date.now() - this.requestTimes[0]) + 500;
+        if (this._requestTimes.length >= this.limit) {
+            this._requestTimes = this._requestTimes.filter(requestTime => requestTime > Date.now() - this.time);
+            if (this._requestTimes.length >= this.limit)
+                return this.time - (Date.now() - this._requestTimes[0]) + 500;
         }
         return -1;
     }
@@ -209,6 +211,6 @@ class RateLimit {
      * Adds time of new request to list
      */
     onRequest(): void {
-        this.requestTimes.push(Date.now());
+        this._requestTimes.push(Date.now());
     }
 }

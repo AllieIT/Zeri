@@ -38,8 +38,7 @@ export class Zeri {
 
     private readonly _params: SparkParams;
     private readonly _rateLimiter: LightningCrash;
-
-    private _logger: Heimerdinger;
+    private readonly _logger: Heimerdinger;
 
     /**
      * Create a new Zeri instance

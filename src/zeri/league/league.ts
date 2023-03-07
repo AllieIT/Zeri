@@ -27,6 +27,9 @@ export class LeagueSpark extends BaseSpark {
      * @param page - page of entries
      */
     async getEntriesByDivision(region: Region, queue: Queue, tier: Tier, division: Division, page: number = 1): Promise<LeagueEntry[]> {
+        if (page < 1)
+            throw new Error("Invalid page number");
+
         const sparkResponse = await this._request<LeagueEntry[]>('EntriesByDivision', {
             region: region.toLowerCase(),
             queue: queue,
@@ -34,9 +37,8 @@ export class LeagueSpark extends BaseSpark {
             division: division,
             page: page.toString()
         });
-        if (sparkResponse) {
+        if (sparkResponse)
             return sparkResponse.data;
-        }
-        return [];
+        throw new Error("No entries found");
     }
 }

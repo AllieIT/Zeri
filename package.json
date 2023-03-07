@@ -2,7 +2,7 @@
   "name": "zeri",
   "version": "1.0.0",
   "description": "LoL API wrapper for Ornn package",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "test": "ts-node tests/test.ts"
   },
