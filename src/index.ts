@@ -1,3 +1,3 @@
 export * as Constants from './constants';
 export * as Models from './models';
-export * from './zeri/zeri'
+export * as Zeri from './zeri/zeri'
