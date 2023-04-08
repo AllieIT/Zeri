@@ -1,3 +1,2 @@
-export * from './enums/region';
-export * from './enums/league';
+export * from './enums';
 export * from './constants';

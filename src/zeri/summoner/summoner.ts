@@ -23,7 +23,7 @@ export class SummonerSpark extends BaseSpark {
         const sparkResponse = await this._request<Summoner>('SummonerBySummonerId', {
             region: region.toLowerCase(),
             encryptedSummonerId: encryptedSummonerId
-        });
+        }, {});
         if (sparkResponse)
             return sparkResponse.data;
         throw new Error(`Player with summonerId ${encryptedSummonerId} not found`)

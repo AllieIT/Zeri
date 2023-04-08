@@ -37,7 +37,6 @@ export class Heimerdinger {
      * @param error Error to print
      */
     logError(error: Error) {
-        console.log(`[${this._prefix}] Error: ${error.message}`);
-        throw Error(error.message);
+        console.log(`[${this._prefix}] Error: {${error.message}}`);
     }
 }

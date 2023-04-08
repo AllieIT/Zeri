@@ -10,14 +10,14 @@ export enum Region {
     TR = 'TR1',
     RU = 'RU',
     JP = 'JP1',
-    PBE = 'PBE1'
+    PBE = 'PBE1',
 }
 
 export enum MacroRegion {
     AMERICAS = 'AMERICAS',
     ASIA = 'ASIA',
     EUROPE = 'EUROPE',
-    SEA = 'SEA'
+    SEA = 'SEA',
 }
 
 export function regionToMacroregion (region: Region): MacroRegion {

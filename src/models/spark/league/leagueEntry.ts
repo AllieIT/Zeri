@@ -8,21 +8,16 @@ export interface LeagueEntry {
      */
     readonly summonerId: string;
     readonly summonerName: string;
+
     readonly queueType: string;
     readonly tier: Tier;
     /**
      * 	The player's division within a tier.
      */
     readonly rank: Division
-
     readonly leaguePoints: number;
-    /**
-     * Winning team on Summoners Rift.
-     */
+
     readonly wins: number;
-    /**
-     * Losing team on Summoners Rift.
-     */
     readonly losses: number;
 
     readonly hotStreak: boolean;

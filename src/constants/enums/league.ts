@@ -7,17 +7,17 @@ export enum Tier {
     DIAMOND = 'DIAMOND',
     MASTER = 'MASTER',
     GRANDMASTER = 'GRANDMASTER',
-    CHALLENGER = 'CHALLENGER'
+    CHALLENGER = 'CHALLENGER',
 }
 
 export enum Division {
     I = 'I',
     II = 'II',
     III = 'III',
-    IV = 'IV'
+    IV = 'IV',
 }
 
 export enum Queue {
     RANKED_SOLO_5x5 = "RANKED_SOLO_5x5",
-    RANKED_FLEX_SR = "RANKED_FLEX_SR"
+    RANKED_FLEX_SR = "RANKED_FLEX_SR",
 }

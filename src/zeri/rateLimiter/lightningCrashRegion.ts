@@ -184,7 +184,6 @@ class RateLimit {
      * Times of requests
      */
     _requestTimes: number[]
-
     /**
      * Create a new rate limit
      * @param limit Max number of requests in given timespan

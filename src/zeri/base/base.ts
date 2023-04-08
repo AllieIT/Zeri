@@ -5,7 +5,7 @@ import { SparkResponse } from "../../models/spark/base/response";
 import { MacroRegion, Region, StaticConstants } from '../../constants';
 import { Heimerdinger } from '../../heimerdinger/heimerdinger';
 import { LightningCrash } from "../rateLimiter/lightningCrash";
-import { injectToString } from '../../util/stringManip';
+import { addQueryString, injectToString } from '../../util/stringManip';
 
 /**
  * Abstract class representing a single Spark, which are public parts of Zeri
@@ -62,17 +62,19 @@ export class BaseSpark {
     /**
      * Generic request
      * @param request Request name
-     * @param queryParams Dictionary of query parameters present in pre-formatted URL
+     * @param pathParams Dictionary of path parameters present in pre-formatted URL
+     * @param queryParams Dictionary of optional query parameters
      * @protected
      */
-    protected async _request<T>(request: string, queryParams: Record<string, string>): Promise<SparkResponse<T>> {
+    protected async _request<T>(request: string, pathParams: Record<string, string>, queryParams: Record<string, any>): Promise<SparkResponse<T>> {
         const urlTemplate = this._baseUrl + this._sparkUrl + this._requestTypes[request];
-        const url = injectToString(urlTemplate, queryParams);
+        const pathUrl = injectToString(urlTemplate, pathParams);
+        const url = addQueryString(pathUrl, queryParams);
 
         if (this._params.debug?.logUrls)
             this._logger.log(url);
 
-        let region: Region | MacroRegion = BaseSpark._getRequestRegion(queryParams);
+        let region: Region | MacroRegion = BaseSpark._getRequestRegion(pathParams);
 
         // Attempt to get a response, throw an error if it fails
 
@@ -86,6 +88,7 @@ export class BaseSpark {
         catch (e) {
             if (e instanceof Error) {
                 this._logger.logError(e);
+                throw e;
             } else
                 this._logger.log(e);
             throw new Error("Unknown error");
