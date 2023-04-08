@@ -18,7 +18,7 @@ config({ path: __dirname + '/../.env'});
  * It implements a rate limiter ensuring the fastest possible data retrieving
  * and prevents making too many requests to the API, avoiding blacklisting.
  */
-export default class Zeri {
+export class Zeri {
     /**
      * Spark responsible for MatchV5 endpoint
      */
