@@ -60,4 +60,8 @@ export class Zeri {
         this.summoner = new SummonerSpark(this._params, this._rateLimiter);
         this.dataDragon = new DataDragonSpark(this._params);
     }
+
+    async initDataDragon() {
+        return this.dataDragon.init()
+    }
 }
