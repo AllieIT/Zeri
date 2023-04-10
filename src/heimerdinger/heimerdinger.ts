@@ -19,7 +19,7 @@ export class Heimerdinger {
         if (secondaryPrefix !== undefined) {
             this._prefix += ` - ${secondaryPrefix}`;
         }
-        this.log('Heimerdinger initialized');
+        // this.log('Heimerdinger initialized');
     }
     /**
      * Log an object or any other message

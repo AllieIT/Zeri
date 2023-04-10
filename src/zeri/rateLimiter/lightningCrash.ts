@@ -35,7 +35,12 @@ export class LightningCrash {
             PBE1: new LightningCrashRegion(params, Region.PBE),
             RU: new LightningCrashRegion(params, Region.RU),
             SEA: new LightningCrashRegion(params, MacroRegion.SEA),
-            TR1: new LightningCrashRegion(params, Region.TR)
+            TR1: new LightningCrashRegion(params, Region.TR),
+            PH2: new LightningCrashRegion(params, Region.PH),
+            SG2: new LightningCrashRegion(params, Region.SG),
+            TH2: new LightningCrashRegion(params, Region.TH),
+            TW2: new LightningCrashRegion(params, Region.TW),
+            VN2: new LightningCrashRegion(params, Region.VN),
         };
     }
     /**

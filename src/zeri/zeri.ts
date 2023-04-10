@@ -58,6 +58,6 @@ export class Zeri {
         this.match = new MatchSpark(this._params, this._rateLimiter);
         this.league = new LeagueSpark(this._params, this._rateLimiter);
         this.summoner = new SummonerSpark(this._params, this._rateLimiter);
-        this.dataDragon = new DataDragonSpark(this._params, this._rateLimiter);
+        this.dataDragon = new DataDragonSpark(this._params);
     }
 }

@@ -10,6 +10,11 @@ export enum Region {
     TR = 'TR1',
     RU = 'RU',
     JP = 'JP1',
+    PH = 'PH2',
+    SG = 'SG2',
+    TH = 'TH2',
+    VN = 'VN2',
+    TW = 'TW2',
     PBE = 'PBE1',
 }
 
@@ -33,6 +38,11 @@ export function regionToMacroregion (region: Region): MacroRegion {
         OC1: MacroRegion.SEA,
         RU: MacroRegion.EUROPE,
         TR1: MacroRegion.EUROPE,
+        PH2: MacroRegion.SEA,
+        SG2: MacroRegion.SEA,
+        TH2: MacroRegion.SEA,
+        VN2: MacroRegion.SEA,
+        TW2: MacroRegion.ASIA,
     }
 
     if (region in regionMap)
