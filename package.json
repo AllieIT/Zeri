@@ -1,6 +1,6 @@
 {
   "name": "zeri",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "LoL API wrapper for Ornn package",
   "main": "dist/index.js",
   "author": "AllieIT",
