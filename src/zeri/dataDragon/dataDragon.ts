@@ -138,6 +138,7 @@ export class DataDragonSpark {
 
         // Array containing all league of legends legendary items
         // see https://leagueoflegends.fandom.com/wiki/Legendary_item
+        // for more information
         const legendaryItemNames = [
             "Abyssal Mask",
             "Anathema's Chains",
