@@ -92,29 +92,35 @@ export class DataDragonSpark {
         return res.data;
     }
 
-    async getChampionById(id: string): Promise<Champion | null> {
-        const champions = await this.getChampions();
-        for (const key in champions.data) {
-            if (champions.data[key].key === id)
-                return champions.data[key];
+    getChampionById(id: string): Champion | null {
+        if (!this._cached)
+            return null;
+
+        for (const key in this._cache.champions!.data) {
+            if (this._cache.champions!.data[key].key === id)
+                return this._cache.champions!.data[key];
         }
         return null;
     }
 
-    async getSummonerSpellById(id: string): Promise<SummonerSpell | null> {
-        const spells = await this.getSummonerSpells();
-        for (const key in spells.data) {
-            if (spells.data[key].key === id)
-                return spells.data[key];
+    getSummonerSpellById(id: string): SummonerSpell | null {
+        if (!this._cached)
+            return null;
+
+        for (const key in this._cache.summonerSpells!.data) {
+            if (this._cache.summonerSpells!.data[key].key === id)
+                return this._cache.summonerSpells!.data[key];
         }
         return null;
     }
 
-    async getItemById(id: string): Promise<Item | null> {
-        const items = await this.getItems();
-        for (const key in items.data) {
+    getItemById(id: string): Item | null {
+        if (!this._cached)
+            return null;
+
+        for (const key in this._cache.items!.data) {
             if (key === id)
-                return items.data[key];
+                return this._cache.items!.data[key];
         }
         return null;
     }
